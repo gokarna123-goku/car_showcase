@@ -8,6 +8,7 @@ import { manufacturers } from '@/constants';
 import { SearchManufacturerProps } from '@/types';
 
 import Image from 'next/image';
+import { Combo } from 'next/font/google';
 
 const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacturerProps) => {
     const [query, setQuery] = useState('');
@@ -48,7 +49,17 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                             afterLeave={() => setQuery('')}
                         >
                             <Combobox.Options>
-
+                                {(
+                                    filterManufacturers.map((item) => (
+                                        <Combobox.Option
+                                            key={item}
+                                            className={({ active }) => `relative search-manufacturer__option ${active ? 'bg-primary-blue text-white' : 'text-gray-900'}`}
+                                            value={item}
+                                        >
+                                            {item}
+                                        </Combobox.Option>
+                                    ))
+                                )}
                             </Combobox.Options>
                         </Transition>
                     </div>
@@ -59,3 +70,13 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
 }
 
 export default SearchManufacturer
+
+// filterManufacturers.length === 0 &&
+// query !== "" ? (
+//     <Combobox.Option
+//         value={query}
+//         className="search-manufacturer__option"
+//     >
+//         Create "{query}"
+//     </Combobox.Option>
+// ) : 
